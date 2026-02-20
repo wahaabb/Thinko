@@ -25,6 +25,7 @@ if (theme==='dark') {
 }else{
         document.documentElement.classList.remove('dark')
 }
+localStorage.setItem('theme', theme)
 },[theme])
 
     useEffect(() => {
@@ -43,7 +44,7 @@ if (theme==='dark') {
 
     const value = {
         navigate, user, setUser, fetchUser, chats, setChats,
-        selectedchats, setSelectedChats, theme
+        selectedchats, setSelectedChats, theme, setTheme
     }
 
     return (
