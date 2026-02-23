@@ -4,9 +4,9 @@ import { assets } from '../assets/assets';
 import moment from 'moment';
 
 
-const SideBar = (isMenuOpen, setisMenuOpen) => {
+const SideBar = ({isMenuOpen, setIsMenuOpen}) => {
 
-  const { chats, user, setSelectedChats, theme, setTheme } = useAppContext();
+  const { chats, user, setSelectedChat, theme, setTheme } = useAppContext();
   const [search, setSearch] = useState('');
 
   return (
@@ -41,9 +41,9 @@ max-md:absolute left-0 z-10 ${!isMenuOpen && "max-md:-translate-x-full"}`}>
             chat.messages[0] ? chat.messages[0]?.content
               .toLowerCase().includes(search.toLowerCase()) :
               chat.name.toLowerCase().includes(search.toLowerCase())).map((chat) => (
-                <div key={chat._id} className='p-2 px-4 dark:bg-[#57317C]/10 border
-border-gray-300 dark:border-[#80609F]/15 rounded-md cursor-pointer
-flex justify-between group'>
+                <div key={chat._id} onClick={() => setSelectedChat(chat)} className='p-2 px-4 dark:bg-[#57317C]/10 border
+                border-gray-300 dark:border-[#80609F]/15 rounded-md cursor-pointer
+                flex justify-between group'>
                   <div>
                     <p className='truncate w-full text-gray-900 dark:text-gray-100'>
                       {chat.messages.length > 0 ? chat.messages[0].content.slice(0, 32) : chat.name}
@@ -52,15 +52,15 @@ flex justify-between group'>
                       {moment(chat.updatedAt).fromNow()}</p>
                   </div>
                   <img src={assets.bin_icon} className='hidden group-hover:block
-w-4 cursor-pointer not-dark:invert' alt="" />
+                  w-4 cursor-pointer not-dark:invert' alt="" />
                 </div>
               ))
         }
       </div>
       {/* Community Images */}
       <div onClick={() => { navigate('/community') }} className='flex items-center gap-2
-p-3 mt-4 border border-gray-300 dark:border-white/15 rounded-md cursor-pointer
-hover:scale-103 transition-all' >
+      p-3 mt-4 border border-gray-300 dark:border-white/15 rounded-md cursor-pointer
+      hover:scale-103 transition-all' >
         <img src={assets.gallery_icon} alt="" className='w-4.5 not-dark:invert' />
         <div className='flex flex-col text-sm'>
           <p className='text-gray-900 dark:text-gray-100'>Community Images</p>
@@ -102,7 +102,7 @@ dark:border-white/15 rounded-md cursor-pointer group'>
         {user && <img src={assets.logout_icon} className='h-5 cursor-pointer hidden
 not-dark:invert group-hover:block'/>}
       </div>
-      <img onClick={()=>setisMenuOpen(false)} src={assets.close_icon}
+      <img onClick={()=>setIsMenuOpen(false)} src={assets.close_icon}
         className='absolute top-3 right-3 w-5 h-5 cursor-pointer md:hidden
 not-dark:invert' alt="" />
     </div>
